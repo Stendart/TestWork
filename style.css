@@ -1,0 +1,149 @@
+.scene{
+    width: 100%;
+    height: 97vh;
+   display: flex;
+}
+
+
+/*Центральная панелька*/
+
+.center{
+    border: 1px solid black;
+    background-color: #E0FFFF;
+    width: 60%;
+    height: 97vh;  
+    display: flex;
+}
+
+#graph{
+    border: 1px solid black;
+    margin: 1% 1% 1% 1%;
+    width: 100%;
+    height: 97%;
+}
+
+#data{
+    border: 1px solid black;
+    margin: 1% 1% 1% 1%;
+    width: 250px;/*40%;*/
+    height: 97%;
+}
+
+#data > * {
+    margin-left: 3%;
+    max-width: 150px;
+    
+}
+
+.infoInput{
+    margin-top: 5px;
+    background-color: white;
+    position: relative;
+}
+
+
+.removeBut{
+    position: absolute;
+    right: 5px;
+}
+
+#leftArrOpen {
+    border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  transform: scale(0.99999);
+  border-left: 30px solid #D6D8DB;
+  position: absolute;
+ /* margin-top: -20px;*/
+ margin-top: 40vh;
+  /*margin-left: -15px;*/
+    display: none;
+}
+
+#leftArrOpen::before {
+  content: '';
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-left: 30px solid #fff;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: -33px;
+}
+
+
+#rightArrOpen{
+    border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  transform: scale(0.99999);
+  border-right: 30px solid #D6D8DB;
+  position: absolute;
+ /* margin-top: -20px;*/
+ /*margin-top: 40vh;*/
+ margin-left: -33px;
+  /*margin-left: -15px;*/
+ display: none;
+}
+
+#rightArrOpen::before {
+  content: '';
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-right: 30px solid #fff;
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  margin-left: 3px;
+}
+#t {
+    text-align: right;
+    margin-top: 40vh;
+}
+
+    /*Правая панелька*/
+
+.right{
+    background-color: #FFE4B5;
+    width: 20%;
+    height: 97vh;
+}
+
+#rightArr{
+    border-top: 15px solid transparent;
+    border-left: 30px solid red;
+    border-bottom: 15px solid transparent;
+    margin-top: 45vh;
+
+    position: relative;
+    /*right: 100%;*/
+}
+
+
+    /*Левая панелька*/
+
+.left{
+    background-color: #FFE4B5;
+    width: 20%;
+    height: 97vh;
+}
+
+#leftArr{
+    border-top: 15px solid transparent;
+    border-right: 30px solid red;
+    border-bottom: 15px solid transparent;
+    margin-top: 45vh;
+
+    position: relative;
+    /*left: 100%;*/
+}
+
+/*#leftArr:active{
+    position: relative;
+    left: 10%;
+}*/
+
+/*График*/
+
+svg line{
+    stroke: grey;
+    stroke-width: 2;
+}
