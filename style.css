@@ -9,7 +9,7 @@
 
 .center{
     border: 1px solid black;
-    background-color: #E0FFFF;
+    background-color: #FFF;
     width: 60%;
     height: 97vh;  
     display: flex;
@@ -20,6 +20,7 @@
     margin: 1% 1% 1% 1%;
     width: 100%;
     height: 97%;
+    
 }
 
 #data{
@@ -27,6 +28,7 @@
     margin: 1% 1% 1% 1%;
     width: 250px;/*40%;*/
     height: 97%;
+    
 }
 
 #data > * {
@@ -48,52 +50,26 @@
 }
 
 #leftArrOpen {
-    border-top: 50px solid transparent;
-  border-bottom: 50px solid transparent;
-  transform: scale(0.99999);
-  border-left: 30px solid #D6D8DB;
+  border-top: 25px solid transparent;
+  border-bottom: 25px solid transparent;
+  border-left: 25px solid #5078c8;
   position: absolute;
- /* margin-top: -20px;*/
- margin-top: 40vh;
-  /*margin-left: -15px;*/
-    display: none;
-}
-
-#leftArrOpen::before {
-  content: '';
-  border-top: 50px solid transparent;
-  border-bottom: 50px solid transparent;
-  border-left: 30px solid #fff;
-  position: absolute;
-  top: 50%;
-  margin-top: -50px;
-  margin-left: -33px;
+  margin-top: 45vh;
+  display: none;
 }
 
 
 #rightArrOpen{
-    border-top: 50px solid transparent;
-  border-bottom: 50px solid transparent;
-  transform: scale(0.99999);
-  border-right: 30px solid #D6D8DB;
+  top: 45vh;
+    border-top: 25px solid transparent;
+  border-bottom: 25px solid transparent;
+  border-right: 25px solid #5078c8;
   position: absolute;
- /* margin-top: -20px;*/
- /*margin-top: 40vh;*/
- margin-left: -33px;
-  /*margin-left: -15px;*/
- display: none;
+  margin-left: -25px;
+  display: none;
 }
 
-#rightArrOpen::before {
-  content: '';
-  border-top: 50px solid transparent;
-  border-bottom: 50px solid transparent;
-  border-right: 30px solid #fff;
-  position: absolute;
-  top: 50%;
-  margin-top: -50px;
-  margin-left: 3px;
-}
+
 #t {
     text-align: right;
     margin-top: 40vh;
@@ -102,15 +78,17 @@
     /*Правая панелька*/
 
 .right{
-    background-color: #FFE4B5;
+    background-color: #eaeaea;
     width: 20%;
     height: 97vh;
+    box-shadow: -7px 0px 10px -3px rgba(0,0,0,0.5);
+
 }
 
 #rightArr{
-    border-top: 15px solid transparent;
-    border-left: 30px solid red;
-    border-bottom: 15px solid transparent;
+    border-top: 25px solid transparent;
+    border-left: 25px solid #5078c8;
+    border-bottom: 25px solid transparent;
     margin-top: 45vh;
 
     position: relative;
@@ -121,15 +99,17 @@
     /*Левая панелька*/
 
 .left{
-    background-color: #FFE4B5;
+    background-color: #eaeaea;
     width: 20%;
     height: 97vh;
+    box-shadow: 7px 0px 10px -3px rgba(0,0,0,0.5);
+    z-index: 2;
 }
 
 #leftArr{
-    border-top: 15px solid transparent;
-    border-right: 30px solid red;
-    border-bottom: 15px solid transparent;
+    border-top: 25px solid transparent;
+    border-right: 25px solid #5078c8;
+    border-bottom: 25px solid transparent;
     margin-top: 45vh;
 
     position: relative;

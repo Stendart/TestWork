@@ -13,6 +13,7 @@ let centerWidth = 60; //ширина центрального блока по у
 let dataInput = document.getElementById('dataInput');
 let collectGrapgsData = [];
 
+let heightDisp;
 
 leftArr.onclick = () => {
 	leftDisplay.style.display = 'none';
@@ -20,6 +21,8 @@ leftArr.onclick = () => {
 	centerDisplay.style.width = centerWidth + '%';
 
 	leftArrOpen.style.display = 'inline';
+
+resizeSVG();
 }
 
 leftArrOpen.onclick = () => {	//Восстановление левой панельки
@@ -28,6 +31,8 @@ leftArrOpen.onclick = () => {	//Восстановление левой пане
 	centerDisplay.style.width = centerWidth + '%';
 
 	leftArrOpen.style.display = 'none';
+
+resizeSVG();
 }
 
 
@@ -37,6 +42,8 @@ rightArr.onclick = () => {
 	centerDisplay.style.width = centerWidth + '%';
 
 	rightArrOpen.style.display = 'inline';
+
+resizeSVG();
 }
 
 rightArrOpen.onclick = () => {	//Восстановление правой панельки
@@ -45,6 +52,8 @@ rightArrOpen.onclick = () => {	//Восстановление правой па�
 	centerDisplay.style.width = centerWidth + '%';
 
 	rightArrOpen.style.display = 'none';
+
+resizeSVG();
 }
 
 
@@ -67,6 +76,7 @@ document.onkeydown = (key) => {
 		collectGrapgsData.push(newValue);
 
 
+
 		let arrPoint = [];		//Новый массив, в котором будет храниться только числовое значение
 
 		collectGrapgsData.forEach((item, i, arr) => {
@@ -74,12 +84,12 @@ document.onkeydown = (key) => {
 			arrPoint[i] = parseFloat(item.val.innerHTML);	//парсю, что бы отбросить текстовую часть
 
 			item.but.onclick = (e) =>{
+
 				e.path[1].remove();
-				arr.splice(i,1);
 				render(arrPoint);
 			}
 
-			
+			console.log(arr);
 
 		});
 
@@ -96,33 +106,53 @@ function render(arrPoint){	//Отрисовка графика
 
 		d3.select("#graph").select("svg").selectAll('*').remove();	//Очищаем SVG элемент
 
-		let stepX = 50; //Шаг на графике по X
-		for(let i=0; i<arrPoint.length-1; i++){
+
+let selectInfo = d3.selectAll('div.infoInput'); //ловим все div со значениями
+
+let stepX = 50;
+for(let i=0; i<selectInfo._groups[0].length-1; i++){
+
+	let startLine = parseFloat(selectInfo._groups[0][i].innerHTML); //точка начала линии
+	let endLine = parseFloat(selectInfo._groups[0][i+1].innerHTML);	//точка конца линии
+
 			svg.append("line")
     			.attr("x1", i*stepX)
-    			.attr("y1", heightDisp -linea(arrPoint[i]))
+    			.attr("y1", heightDisp -linea(startLine))
     			.attr("x2", (i+1) *stepX)
-    			.attr("y2", heightDisp -linea(arrPoint[i+1]));
+    			.attr("y2", heightDisp -linea(endLine));
 
     		svg.append("text")
     			.attr("x", i*stepX)
-    			.attr("y", heightDisp -linea(arrPoint[i]))
+    			.attr("y", heightDisp -linea(startLine))
     			.style("font-size", "11px")
-    			.text(arrPoint[i]);	
+    			.text(startLine);
 		}
 
+		let endLine = parseFloat(selectInfo._groups[0][selectInfo._groups[0].length-1].innerHTML); //последняя точка графика (для подписи)
+
 		svg.append("text")
-    		.attr("x", (arrPoint.length-1)*stepX)
-    		.attr("y", heightDisp -linea(arrPoint[arrPoint.length-1]))
+    		.attr("x", (parseFloat(selectInfo._groups[0].length-1))*stepX)
+    		.attr("y", heightDisp -linea(endLine))
     		.style("font-size", "11px")
-    		.text(arrPoint[arrPoint.length-1]);
+    		.text(endLine);
 }
 
-let heightDisp = graphDispl.offsetHeight;
+heightDisp = graphDispl.offsetHeight;
 let svg = d3.select("#graph").append("svg");
      
 svg.attr("height", heightDisp)
     .attr("width", graphDispl.offsetWidth);
 
 
-   
+console.log(graphDispl);
+/*window.onresize = () =>{
+	console.log(graphDispl);
+}*/
+
+function resizeSVG() {
+	heightDisp = graphDispl.offsetHeight;
+	svg.attr("height", heightDisp)
+    .attr("width", graphDispl.offsetWidth);
+
+    console.log(graphDispl);
+}
