@@ -102,12 +102,16 @@ function render(arrPoint){	//Отрисовка графика
 	let rang = d3.extent(arrPoint);
 		let linea = d3.scaleLinear()	//Разбиваем на нужный отрезак
 			.domain([rang[0], rang[1]])
-			.range([100, 500]);
+			.range([10, heightDisp - 10]);	//Проецируем на высоту SVG области
 
 		d3.select("#graph").select("svg").selectAll('*').remove();	//Очищаем SVG элемент
 
-
 let selectInfo = d3.selectAll('div.infoInput'); //ловим все div со значениями
+
+let lenearX = d3.scaleLinear()	//вычисление шага по Х исходя из кол-ва точек
+			.domain([0, selectInfo._groups[0].length-1])
+			.range([10, graphDispl.offsetWidth - 10]);	
+
 
 let stepX = 50;
 for(let i=0; i<selectInfo._groups[0].length-1; i++){
@@ -116,13 +120,13 @@ for(let i=0; i<selectInfo._groups[0].length-1; i++){
 	let endLine = parseFloat(selectInfo._groups[0][i+1].innerHTML);	//точка конца линии
 
 			svg.append("line")
-    			.attr("x1", i*stepX)
+    			.attr("x1", lenearX(i))//i*stepX)
     			.attr("y1", heightDisp -linea(startLine))
-    			.attr("x2", (i+1) *stepX)
+    			.attr("x2", lenearX(i+1))//(i+1) *stepX)
     			.attr("y2", heightDisp -linea(endLine));
 
     		svg.append("text")
-    			.attr("x", i*stepX)
+    			.attr("x", lenearX(i))//i*stepX)
     			.attr("y", heightDisp -linea(startLine))
     			.style("font-size", "11px")
     			.text(startLine);
@@ -131,7 +135,7 @@ for(let i=0; i<selectInfo._groups[0].length-1; i++){
 		let endLine = parseFloat(selectInfo._groups[0][selectInfo._groups[0].length-1].innerHTML); //последняя точка графика (для подписи)
 
 		svg.append("text")
-    		.attr("x", (parseFloat(selectInfo._groups[0].length-1))*stepX)
+    		.attr("x", lenearX(parseFloat(selectInfo._groups[0].length-1)))//(parseFloat(selectInfo._groups[0].length-1))*stepX)
     		.attr("y", heightDisp -linea(endLine))
     		.style("font-size", "11px")
     		.text(endLine);
