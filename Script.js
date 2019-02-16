@@ -14,6 +14,7 @@ let dataInput = document.getElementById('dataInput');
 let collectGrapgsData = [];
 
 let heightDisp;
+let widthDisp;
 
 leftArr.onclick = () => {
 	leftDisplay.style.display = 'none';
@@ -61,7 +62,7 @@ document.onkeydown = (key) => {
 	if(document.activeElement.id == dataInput.id && key.keyCode == 13){		//Если при нажатии Enter активен input ввода, то читаем значение
 		
 
-		let newValue = {};	//Объект, что бы хранить рядом и текстовое поле и кнопку Remove
+		/*let newValue = {};	//Объект, что бы хранить рядом и текстовое поле и кнопку Remove
 		newValue.val = document.createElement('div');
 		newValue.val.innerHTML =  ' ' + dataInput.value;
 		newValue.val.className = 'infoInput';
@@ -73,29 +74,61 @@ document.onkeydown = (key) => {
 		newValue.val.appendChild(newValue.but)
 
 		document.getElementById('valueList').appendChild(newValue.val);
-		collectGrapgsData.push(newValue);
+		collectGrapgsData.push(newValue);*/
+
+
 
 
 
 		let arrPoint = [];		//Новый массив, в котором будет храниться только числовое значение
+		createNewValue(arrPoint);
 
 		collectGrapgsData.forEach((item, i, arr) => {
 
 			arrPoint[i] = parseFloat(item.val.innerHTML);	//парсю, что бы отбросить текстовую часть
 
-			item.but.onclick = (e) =>{
+			//item.but.addEventListener('click', removeClick);
+			/*item.but.onclick = (e) =>{
+				removeClick(e, arrPoint);
+				//e.path[1].remove();
+				//render(arrPoint);
+			}*/
 
-				e.path[1].remove();
-				render(arrPoint);
-			}
-
-			console.log(arr);
+			//console.log(arr);
 
 		});
 
 		render(arrPoint);
 		}
 	}		
+
+
+function createNewValue(arrPoint) {
+	let newValue = {};	//Объект, что бы хранить рядом и текстовое поле и кнопку Remove
+		newValue.val = document.createElement('div');
+		newValue.val.innerHTML =  ' ' + dataInput.value;
+		newValue.val.className = 'infoInput';
+
+		arrPoint.push(dataInput.value); //??????
+console.log(arrPoint);
+		newValue.but = document.createElement('button'); //Кнопка Remove
+		newValue.but.className = 'removeBut';
+		newValue.but.innerHTML = 'Remove';
+
+	const  removeClick = (e) => {
+		e.target.parentNode.removeEventListener('click', removeClick);
+		e.target.parentNode.remove();
+
+		render(arrPoint);
+	}
+
+		newValue.but.addEventListener('click', removeClick);
+
+		newValue.val.appendChild(newValue.but)
+
+		document.getElementById('valueList').appendChild(newValue.val);
+		collectGrapgsData.push(newValue);
+}
 
 
 function render(arrPoint){	//Отрисовка графика
@@ -142,6 +175,7 @@ for(let i=0; i<selectInfo._groups[0].length-1; i++){
 }
 
 heightDisp = graphDispl.offsetHeight;
+widthDisp = graphDispl.offsetWidth;	//Для пробы создал, можно удалить
 let svg = d3.select("#graph").append("svg");
      
 svg.attr("height", heightDisp)
@@ -154,9 +188,14 @@ console.log(graphDispl);
 }*/
 
 function resizeSVG() {
+	//console.log(widthDisp);
+	//console.log(graphDispl.offsetWidth);
+	//graphDispl.style.width = widthDisp - document.getElementById('data').offsetWidth + 'px';
+	    //console.log(graphDispl.offsetWidth);
 	heightDisp = graphDispl.offsetHeight;
 	svg.attr("height", heightDisp)
     .attr("width", graphDispl.offsetWidth);
 
     console.log(graphDispl);
+    console.log(document.getElementById('data').offsetWidth);
 }
